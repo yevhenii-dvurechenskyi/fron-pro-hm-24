@@ -1,0 +1,72 @@
+.container {
+    display: block;
+    margin: 0 auto;
+    width: 500px;
+}
+
+button {
+    margin-left: 5px;
+    border-radius: 10px;
+    border: 1px solid darkgray;
+}
+button:hover{
+    transition: all 1s ease-in-out;
+    background-color: #72cacb;
+}
+
+input {
+    font-size: 12px;
+    box-shadow: #b8e5cb;
+    border: 2px solid rgba(239, 239, 239, 1);
+    text-align: center;
+    border-radius: 10px;
+}
+
+input:hover {
+    background-color: #ffffff;
+    border: 2px solid rgba(236, 155, 155, 0.77);
+    transition: all 1s ease-in-out;
+
+}
+
+input:visited {
+    background-color: #ffffff;
+    border: 2px solid rgba(236, 155, 155, 0.77);
+}
+
+.sse {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.progressBar {
+    display: flex;
+}
+
+.statusBar {
+    display: block;
+    width: 25%;
+    height: auto;
+    margin-right: 5px;
+    background-color: #ffffff;
+    text-align: center;
+    font-size: 14px;
+    border: 2px solid #72cacb;
+    border-radius: 6px;
+    color: rgba(229, 88, 114, 0.77);
+
+}
+
+.targetStatusBar {
+    display: block;
+    width: 25%;
+    height: auto;
+    font-size: 14px;
+    text-align: center;
+    border: 2px solid #72cacb;
+    border-radius: 6px;
+    color: rgba(229, 88, 114, 0.77);
+    background-color: #b8e5cb;
+}

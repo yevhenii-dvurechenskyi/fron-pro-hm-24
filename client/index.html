@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page from server</title>
+    <link rel="stylesheet" href="./client.css">
+</head>
+<body>
+<main class="container">
+
+    <section class="sse">
+        <input placeholder="Введите название пиццы" type="text">
+        <button>Оформить заказ</button>
+    </section>
+
+    <section class="progressBar">
+        <div class="statusBar"> start order</div>
+        <div class="statusBar"> cooking order</div>
+        <div class="statusBar"> packing order</div>
+        <div class="statusBar"> delivering order</div>
+    </section>
+
+</main>
+
+<script>
+
+    let url = "http://localhost:8080/sse"
+    const button = document.querySelector('button');
+    const input = document.querySelector('input')
+    const targetBlock = document.querySelectorAll('div');
+
+
+    button.addEventListener('click', () => {
+
+        postRequest();
+
+        const eventSource = new EventSource(url);
+
+        eventSource.addEventListener("order-not-found", () => {
+            console.log("order-not-found");
+            eventSource.close();
+        });
+
+
+        eventSource.addEventListener("pizza-order-status-update", (event) => {
+            console.log(`status order : ${event.data}`);
+            if (event.data) {
+                targetBlock.forEach(item => {
+                    event.data === item.innerText ?
+                        item.classList.add('targetStatusBar') :
+                        item.classList.add('statusBar')
+                })
+            }
+
+            if (event.data === 'delivering order') {
+                eventSource.close();
+
+                setTimeout(() => {
+                    targetBlock.forEach(item => item.classList.remove('targetStatusBar'));
+                }, 2000)
+            };
+        });
+    });
+
+
+    async function postRequest() {
+
+        const response = await fetch('http://localhost:8080/orderPizza', {
+            method: 'POST',
+            body: JSON.stringify(input.value)
+        });
+
+        input.value = '';
+        const data = await response.json();
+        console.log(data)
+    }
+
+</script>
+</body>
+</html>
